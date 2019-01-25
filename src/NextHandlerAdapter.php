@@ -59,7 +59,6 @@ class NextHandlerAdapter implements RequestHandlerInterface
         $response = ($this->next)($request);
 
         return $this->getPsr7Response($response);
-
     }
 
     private function convertRequest(ServerRequestInterface $psr7Request, $originalRequest): Request

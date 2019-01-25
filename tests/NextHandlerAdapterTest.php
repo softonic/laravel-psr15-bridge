@@ -32,7 +32,7 @@ class NextHandlerAdapterTest extends TestCase
             ->with($response)
             ->willReturn($psr7Response);
 
-        $next = function($transformedRequest) use ($request, $response){
+        $next = function ($transformedRequest) use ($request, $response) {
             $this->assertSame($request, $transformedRequest);
             return $response;
         };

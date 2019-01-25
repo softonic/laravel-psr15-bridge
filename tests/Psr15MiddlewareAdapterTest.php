@@ -42,8 +42,7 @@ class Psr15MiddlewareAdapterTest extends TestCase
             ->with($request)
             ->willReturn($psr7Request);
 
-        $psr15Middleware = new class implements MiddlewareInterface
-        {
+        $psr15Middleware = new class() implements MiddlewareInterface {
             public function process(
                 ServerRequestInterface $request,
                 RequestHandlerInterface $handler

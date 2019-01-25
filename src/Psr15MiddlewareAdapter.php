@@ -68,8 +68,8 @@ class Psr15MiddlewareAdapter
      * Transform current FoundationRequest to PSR-7 to allow the PSR-15 to process it and wait for their response
      * that will be adapted from PSR-7 to HttpFoundation to allow previous middleware to process it.
      *
-     * @param Request   $foundationRequest
-     * @param  \Closure $next
+     * @param Request  $foundationRequest
+     * @param \Closure $next
      *
      * @return Response
      */
