@@ -138,7 +138,7 @@ class Psr15MiddlewareAdapter
         $response->setCharset($foundationResponse->getCharset() ? $foundationResponse->getCharset() : '');
 
         foreach($foundationResponse->headers->getCookies() as $cookie) {
-            $response = $response->withCookie($cookie);
+            $response->withCookie($cookie);
         }
 
         return $response;
