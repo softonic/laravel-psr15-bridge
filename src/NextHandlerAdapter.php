@@ -6,8 +6,8 @@ use Closure;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
+use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
 use Symfony\Component\HttpFoundation\Request;
 
 class NextHandlerAdapter implements RequestHandlerInterface
@@ -23,9 +23,9 @@ class NextHandlerAdapter implements RequestHandlerInterface
     private $next;
 
     /**
-     * @var DiactorosFactory
+     * @var PsrHttpFactory
      */
-    private $diactorosFactory;
+    private $psrHttpFactory;
 
     /**
      * @var HttpFoundationFactory
@@ -34,11 +34,11 @@ class NextHandlerAdapter implements RequestHandlerInterface
 
     public function __construct(
         HttpFoundationFactory $httpFoundationFactory,
-        DiactorosFactory $diactorosFactory,
+        PsrHttpFactory $psrHttpFactory,
         Request $foundationRequest,
         Closure $next
     ) {
-        $this->diactorosFactory      = $diactorosFactory;
+        $this->psrHttpFactory      = $psrHttpFactory;
         $this->foundationRequest     = $foundationRequest;
         $this->next                  = $next;
         $this->httpFoundationFactory = $httpFoundationFactory;
@@ -79,11 +79,11 @@ class NextHandlerAdapter implements RequestHandlerInterface
     /**
      * @param $response
      *
-     * @return ResponseInterface|DiactorosFactory|\Zend\Diactoros\Response
+     * @return ResponseInterface
      */
     protected function getPsr7Response($response)
     {
-        return $this->diactorosFactory->createResponse($response);
+        return $this->psrHttpFactory->createResponse($response);
     }
 }
 

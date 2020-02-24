@@ -4,11 +4,12 @@ namespace Softonic\Laravel\Middleware\Psr15Bridge;
 
 use Closure;
 use Illuminate\Http\Response;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
-use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
+use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
 use Symfony\Component\HttpFoundation\Request;
 
 class Psr15MiddlewareAdapter
@@ -19,9 +20,9 @@ class Psr15MiddlewareAdapter
     private $psr15Middleware;
 
     /**
-     * @var DiactorosFactory
+     * @var PsrHttpFactory
      */
-    private $diactorosFactory;
+    private $psrHttpFactory;
 
     /**
      * @var HttpFoundationFactory
@@ -35,12 +36,12 @@ class Psr15MiddlewareAdapter
 
     public function __construct(
         NextHandlerFactory $nextHandlerFactory,
-        DiactorosFactory $diactorosFactory,
+        PsrHttpFactory $psrHttpFactory,
         HttpFoundationFactory $httpFoundationFactory,
         MiddlewareInterface $psr15Middleware
     ) {
         $this->psr15Middleware       = $psr15Middleware;
-        $this->diactorosFactory      = $diactorosFactory;
+        $this->psrHttpFactory      = $psrHttpFactory;
         $this->httpFoundationFactory = $httpFoundationFactory;
         $this->nextHandlerFactory    = $nextHandlerFactory;
     }
@@ -54,9 +55,11 @@ class Psr15MiddlewareAdapter
      */
     public static function adapt(MiddlewareInterface $psr15Middleware)
     {
+        $psr17Factory = new Psr17Factory();
+
         return new self(
             new NextHandlerFactory(),
-            new DiactorosFactory(),
+            new PsrHttpFactory($psr17Factory, $psr17Factory, $psr17Factory, $psr17Factory),
             new HttpFoundationFactory(),
             $psr15Middleware
         );
@@ -98,7 +101,7 @@ class Psr15MiddlewareAdapter
     {
         return $this->nextHandlerFactory->getHandler(
             $this->httpFoundationFactory,
-            $this->diactorosFactory,
+            $this->psrHttpFactory,
             $request,
             $next
         );
@@ -109,11 +112,11 @@ class Psr15MiddlewareAdapter
      *
      * @param Request $request
      *
-     * @return ServerRequestInterface|DiactorosFactory|\Zend\Diactoros\ServerRequest
+     * @return ServerRequestInterface
      */
     protected function getPsr7Request(Request $request)
     {
-        return $this->diactorosFactory->createRequest($request);
+        return $this->psrHttpFactory->createRequest($request);
     }
 
     /**
@@ -135,9 +138,9 @@ class Psr15MiddlewareAdapter
         $response->setContent($foundationResponse->getContent());
         $response->setProtocolVersion($foundationResponse->getProtocolVersion());
         $response->setStatusCode($foundationResponse->getStatusCode());
-        $response->setCharset($foundationResponse->getCharset() ? $foundationResponse->getCharset() : '');
+        $response->setCharset($foundationResponse->getCharset() ?: '');
 
-        foreach($foundationResponse->headers->getCookies() as $cookie) {
+        foreach ($foundationResponse->headers->getCookies() as $cookie) {
             $response->withCookie($cookie);
         }
 

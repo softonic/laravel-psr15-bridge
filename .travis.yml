@@ -2,11 +2,18 @@ language: php
 
 sudo: false
 
+env:
+  - COMPOSER_FLAGS=""
+
 matrix:
   include:
     - php: 7.1
-      env: COLLECT_COVERAGE=true VALIDATE_CODING_STYLE=true
+      env: COLLECT_COVERAGE=true VALIDATE_CODING_STYLE=true COMPOSER_FLAGS="--prefer-stable --prefer-lowest"
     - php: 7.2
+      env: COLLECT_COVERAGE=true VALIDATE_CODING_STYLE=true
+    - php: 7.3
+      env: COLLECT_COVERAGE=true VALIDATE_CODING_STYLE=true
+    - php: 7.4
       env: COLLECT_COVERAGE=true VALIDATE_CODING_STYLE=true
     - php: master
       env: COLLECT_COVERAGE=true VALIDATE_CODING_STYLE=false
@@ -22,7 +29,7 @@ before_install:
   - travis_retry composer self-update
 
 install:
-  - travis_retry composer update --no-interaction --prefer-source
+  - travis_retry composer update --no-interaction --prefer-source $COMPOSER_FLAGS
 
 script:
   - composer phpunit
