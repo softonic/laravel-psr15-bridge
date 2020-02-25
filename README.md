@@ -2,7 +2,7 @@ Laravel PSR-15 Middleware Bridge
 =====
 
 [![Latest Version](https://img.shields.io/github/release/softonic/laravel-psr15-bridge.svg?style=flat-square)](https://github.com/softonic/laravel-psr15-bridge/releases)
-[![Software License](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](LICENSE.md)
+[![Software License](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](LICENSE)
 [![Build Status](https://img.shields.io/travis/softonic/laravel-psr15-bridge/master.svg?style=flat-square)](https://travis-ci.org/softonic/laravel-psr15-bridge)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/softonic/laravel-psr15-bridge.svg?style=flat-square)](https://scrutinizer-ci.com/g/softonic/laravel-psr15-bridge/code-structure)
 [![Quality Score](https://img.shields.io/scrutinizer/g/softonic/laravel-psr15-bridge.svg?style=flat-square)](https://scrutinizer-ci.com/g/softonic/laravel-psr15-bridge)
@@ -47,7 +47,7 @@ public function register()
         $validator = new \HKarlstrom\Middleware\OpenApiValidation('schema.json');
     
         return Psr15MiddlewareAdapter::adapt($validator);
-    }
+    });
 }
 ```
 

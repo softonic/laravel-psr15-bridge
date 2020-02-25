@@ -53,7 +53,7 @@ class Psr15MiddlewareAdapter
      *
      * @return Psr15MiddlewareAdapter
      */
-    public static function adapt(MiddlewareInterface $psr15Middleware)
+    public static function adapt(MiddlewareInterface $psr15Middleware): Psr15MiddlewareAdapter
     {
         $psr17Factory = new Psr17Factory();
 
@@ -71,17 +71,17 @@ class Psr15MiddlewareAdapter
      * Transform current FoundationRequest to PSR-7 to allow the PSR-15 to process it and wait for their response
      * that will be adapted from PSR-7 to HttpFoundation to allow previous middleware to process it.
      *
-     * @param Request  $foundationRequest
-     * @param \Closure $next
+     * @param Request $foundationRequest
+     * @param Closure $next
      *
      * @return Response
      */
     public function handle(Request $foundationRequest, Closure $next): Response
     {
         $psr7Request = $this->getPsr7Request($foundationRequest);
-        $next        = $this->getNextExecutionHandlerAdapter($foundationRequest, $next);
+        $nextAdapted = $this->getNextExecutionHandlerAdapter($foundationRequest, $next);
 
-        $response = $this->psr15Middleware->process($psr7Request, $next);
+        $response = $this->psr15Middleware->process($psr7Request, $nextAdapted);
 
         return $this->getResponse($response);
     }
@@ -97,7 +97,7 @@ class Psr15MiddlewareAdapter
      *
      * @return NextHandlerAdapter
      */
-    public function getNextExecutionHandlerAdapter(Request $request, Closure $next)
+    private function getNextExecutionHandlerAdapter(Request $request, Closure $next): NextHandlerAdapter
     {
         return $this->nextHandlerFactory->getHandler(
             $this->httpFoundationFactory,
@@ -114,7 +114,7 @@ class Psr15MiddlewareAdapter
      *
      * @return ServerRequestInterface
      */
-    protected function getPsr7Request(Request $request)
+    protected function getPsr7Request(Request $request): ServerRequestInterface
     {
         return $this->psrHttpFactory->createRequest($request);
     }
@@ -128,7 +128,7 @@ class Psr15MiddlewareAdapter
      */
     protected function getResponse(ResponseInterface $psr7Response): Response
     {
-        $response = new \Illuminate\Http\Response();
+        $response = new Response();
         $foundationResponse = $this->httpFoundationFactory->createResponse($psr7Response);
 
         foreach ($foundationResponse->headers as $key => $value) {

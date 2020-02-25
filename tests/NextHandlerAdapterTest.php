@@ -7,27 +7,29 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class NextHandlerAdapterTest extends TestCase
 {
     /**
      * @test
      */
-    public function whenHandledItShouldAdaptTheRequestForNextMiddlewareAndResponseForThePrevious()
+    public function whenHandledItShouldAdaptTheRequestForNextMiddlewareAndResponseForThePrevious(): void
     {
         $psr7Request = $this->createMock(ServerRequestInterface::class);
         $psr7Response = $this->createMock(ResponseInterface::class);
-        $request = new \Symfony\Component\HttpFoundation\Request();
-        $response = new \Symfony\Component\HttpFoundation\Response();
+        $request = new Request();
+        $response = new Response();
 
         $httpFoundationFactory = $this->createMock(HttpFoundationFactory::class);
         $httpFoundationFactory->expects($this->once())
             ->method('createRequest')
             ->with($psr7Request)
-            ->willReturn(new \Symfony\Component\HttpFoundation\Request());
+            ->willReturn(new Request());
 
-        $diactorosFactory = $this->createMock(PsrHttpFactory::class);
-        $diactorosFactory->expects($this->once())
+        $psrFactory = $this->createMock(PsrHttpFactory::class);
+        $psrFactory->expects($this->once())
             ->method('createResponse')
             ->with($response)
             ->willReturn($psr7Response);
@@ -39,7 +41,7 @@ class NextHandlerAdapterTest extends TestCase
 
         $next = new NextHandlerAdapter(
             $httpFoundationFactory,
-            $diactorosFactory,
+            $psrFactory,
             $request,
             $next
         );
