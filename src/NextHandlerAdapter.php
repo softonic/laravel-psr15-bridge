@@ -51,6 +51,8 @@ class NextHandlerAdapter implements RequestHandlerInterface
      * and wait for a response that must be adapter to PSR-7 response to allow the
      * PSR-15 middleware process it.
      *
+     * @param ServerRequestInterface $psr7Request
+     *
      * @return ResponseInterface
      */
     public function handle(ServerRequestInterface $psr7Request): ResponseInterface
@@ -81,10 +83,8 @@ class NextHandlerAdapter implements RequestHandlerInterface
      *
      * @return ResponseInterface
      */
-    protected function getPsr7Response($response)
+    protected function getPsr7Response($response): ResponseInterface
     {
         return $this->psrHttpFactory->createResponse($response);
     }
 }
-
-;

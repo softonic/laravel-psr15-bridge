@@ -3,7 +3,6 @@
 namespace Softonic\Laravel\Middleware\Psr15Bridge;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -17,7 +16,7 @@ class Psr15MiddlewareAdapterTest extends TestCase
     /**
      * @test
      */
-    public function whenHandledItShouldAdaptTheRequestForNextMiddlewareAndResponseForThePrevious()
+    public function whenHandledItShouldAdaptTheRequestForNextMiddlewareAndResponseForThePrevious(): void
     {
         $psr7Request  = $this->createMock(ServerRequestInterface::class);
         $psr7Response = $this->createMock(ResponseInterface::class);
@@ -36,8 +35,8 @@ class Psr15MiddlewareAdapterTest extends TestCase
             ->with($psr7Response)
             ->willReturn($response);
 
-        $diactorosFactory = $this->createMock(PsrHttpFactory::class);
-        $diactorosFactory->expects($this->once())
+        $psrFactory = $this->createMock(PsrHttpFactory::class);
+        $psrFactory->expects($this->once())
             ->method('createRequest')
             ->with($request)
             ->willReturn($psr7Request);
@@ -57,7 +56,7 @@ class Psr15MiddlewareAdapterTest extends TestCase
 
         $psr15MiddlewareAdapter = new Psr15MiddlewareAdapter(
             $nextHandlerFactory,
-            $diactorosFactory,
+            $psrFactory,
             $httpFoundationFactory,
             $psr15Middleware
         );
@@ -67,7 +66,5 @@ class Psr15MiddlewareAdapterTest extends TestCase
                 'Never will be executed because the nextHandlerAdapter is mocked'
             );
         });
-
-        $this->assertInstanceOf(Response::class, $resultResponse);
     }
 }
