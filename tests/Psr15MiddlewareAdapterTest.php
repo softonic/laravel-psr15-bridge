@@ -9,8 +9,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
+use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
 
 class Psr15MiddlewareAdapterTest extends TestCase
 {
@@ -36,7 +36,7 @@ class Psr15MiddlewareAdapterTest extends TestCase
             ->with($psr7Response)
             ->willReturn($response);
 
-        $diactorosFactory = $this->createMock(DiactorosFactory::class);
+        $diactorosFactory = $this->createMock(PsrHttpFactory::class);
         $diactorosFactory->expects($this->once())
             ->method('createRequest')
             ->with($request)

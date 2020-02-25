@@ -34,7 +34,7 @@ Wrapping [OpenApi Validation Middleware](https://github.com/hkarlstrom/openapi-v
 ```php
 // app/Providers/AppServiceProvider.php
 
-use HKarlstrom\Middleware\OpenApiValidation
+use HKarlstrom\Middleware\OpenApiValidation;
 
 /**
  * Register any application services.

@@ -5,8 +5,8 @@ namespace Softonic\Laravel\Middleware\Psr15Bridge;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Symfony\Bridge\PsrHttpMessage\Factory\DiactorosFactory;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
+use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
 
 class NextHandlerAdapterTest extends TestCase
 {
@@ -26,7 +26,7 @@ class NextHandlerAdapterTest extends TestCase
             ->with($psr7Request)
             ->willReturn(new \Symfony\Component\HttpFoundation\Request());
 
-        $diactorosFactory = $this->createMock(DiactorosFactory::class);
+        $diactorosFactory = $this->createMock(PsrHttpFactory::class);
         $diactorosFactory->expects($this->once())
             ->method('createResponse')
             ->with($response)
