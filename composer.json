@@ -10,7 +10,7 @@
   },
   "require": {
     "php": ">=7.1",
-    "illuminate/http": "^5.6 || ^6.0",
+    "illuminate/http": "^5.6 || ^6.0 || ^7.0",
     "psr/http-server-middleware": "^1.0",
     "symfony/psr-http-message-bridge": "^2.0",
     "nyholm/psr7": "^1.2"

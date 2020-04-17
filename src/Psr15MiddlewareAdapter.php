@@ -90,7 +90,7 @@ class Psr15MiddlewareAdapter
      * Hook the next execution handler to intercept it.
      *
      * The handler adapt the request and response to the needed objects
-     * to allow PST-15 and Laravel middleware executions.
+     * to allow PSR-15 and Laravel middleware executions.
      *
      * @param Request $request
      * @param Closure $next
