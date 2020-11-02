@@ -9,15 +9,15 @@
     "issues": "https://github.com/softonic//issues"
   },
   "require": {
-    "php": ">=7.1",
-    "illuminate/http": "^5.6 || ^6.0 || ^7.0",
+    "php": ">=7.3",
+    "illuminate/http": "^7.0 || ^8.0",
+    "nyholm/psr7": "^1.2",
     "psr/http-server-middleware": "^1.0",
-    "symfony/psr-http-message-bridge": "^2.0",
-    "nyholm/psr7": "^1.2"
+    "symfony/psr-http-message-bridge": "^2.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^7.0",
-    "friendsofphp/php-cs-fixer": "^2.4"
+    "friendsofphp/php-cs-fixer": "^2.16",
+    "phpunit/phpunit": "^9.0"
   },
   "autoload": {
     "psr-4": {
@@ -30,7 +30,7 @@
     }
   },
   "scripts": {
-    "test": "phpunit --coverage-text; php-cs-fixer fix -v --diff --dry-run --allow-risky=yes;",
+    "tests": "phpunit --coverage-text; php-cs-fixer fix -v --diff --dry-run --allow-risky=yes;",
     "phpunit": "phpunit --coverage-text",
     "phpcs": "php-cs-fixer fix -v --diff --dry-run --allow-risky=yes;",
     "fix-cs": "php-cs-fixer fix -v --diff --allow-risky=yes;"
