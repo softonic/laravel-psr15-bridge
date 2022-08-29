@@ -8,7 +8,7 @@ Laravel PSR-15 Middleware Bridge
 [![Quality Score](https://img.shields.io/scrutinizer/g/softonic/laravel-psr15-bridge.svg?style=flat-square)](https://scrutinizer-ci.com/g/softonic/laravel-psr15-bridge)
 [![Total Downloads](https://img.shields.io/packagist/dt/softonic/laravel-psr15-bridge.svg?style=flat-square)](https://packagist.org/packages/softonic/laravel-psr15-bridge)
 
-This package provides a Laravel middleware bridge for [PSR-15](https://www.php-fig.org/psr/psr-15/) inspired in [jshannon63/laravel-psr15-middleware](https://github.com/jshannon63/laravel-psr15-middleware).
+This package provides a Laravel middleware bridge for [PSR-15][PSR-15] inspired in [jshannon63/laravel-psr15-middleware](https://github.com/jshannon63/laravel-psr15-middleware).
 
 Installation
 -------
@@ -24,7 +24,7 @@ You are ready to use it!
 Usage
 -------
 
-The bridge adapter receive a PSR-15 middleware via injection, so the bridge is transparent for Laravel and you can use
+The bridge adapter receive a [PSR-15][PSR-15] middleware via injection, so the bridge is transparent for Laravel and you can use
 it as any other middleware.
 
 
@@ -34,7 +34,7 @@ Wrapping [OpenApi Validation Middleware](https://github.com/hkarlstrom/openapi-v
 ```php
 // app/Providers/AppServiceProvider.php
 
-use HKarlstrom\Middleware\OpenApiValidation;
+use Softonic\Laravel\Middleware\Psr15Bridge\Psr15MiddlewareAdapter;
 
 /**
  * Register any application services.
@@ -44,8 +44,11 @@ use HKarlstrom\Middleware\OpenApiValidation;
 public function register()
 {
     $this->app->bind(OpenApiValidation::class, function () {
+
+        // Setup your PSR-15 middleware here
         $validator = new \HKarlstrom\Middleware\OpenApiValidation('schema.json');
     
+        // Return it wrapped in the adapter to make Laravel accept it
         return Psr15MiddlewareAdapter::adapt($validator);
     });
 }
@@ -62,7 +65,7 @@ protected $routeMiddleware = [
 ];
 ```
 
-Check [laravel middleware](https://laravel.com/docs/5.7/middleware) for more information.
+Check [laravel middleware](https://laravel.com/docs/9.x/middleware) for more information.
 
 How it works
 ------------
@@ -71,8 +74,8 @@ In the next diagram you can see the request and response flow.
 
 ![psr-15 bridge flow](doc/bridge_flow.png)
 
-As you can see, when you execute `Psr15MiddlewareAdapter::adapt($validator);`, you are adding an envelop to the psr-15
-middleware that converts the request and response transparently for the middleware and the laravel itself.
+As you can see, when you execute `Psr15MiddlewareAdapter::adapt($validator);`, you are adding an envelop to the PSR-15
+middleware that converts the request and response transparently for the middleware format Laravel expects.
 
 
 Testing
@@ -91,5 +94,4 @@ License
 
 The Apache 2.0 license. Please see [LICENSE](LICENSE) for more information.
 
-[PSR-2]: http://www.php-fig.org/psr/psr-2/
-[PSR-4]: http://www.php-fig.org/psr/psr-4/
+[PSR-15]: http://www.php-fig.org/psr/psr-15/
