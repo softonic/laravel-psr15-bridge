@@ -8,7 +8,7 @@ return (new PhpCsFixer\Config())
         '@PSR2' => true,
         'array_syntax' => ['syntax' => 'short'],
         'concat_space' => ['spacing' => 'one'],
-        'new_with_braces' => true,
+        'new_with_parentheses' => true,
         'no_blank_lines_after_phpdoc' => true,
         'no_empty_comment' => true,
         'no_empty_phpdoc' => true,
