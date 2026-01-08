@@ -1,29 +1,36 @@
 services:
   php:
+    build: .
     volumes:
     - ./:/app
-    image: composer:2.6
 
   install:
+    build: .
     volumes:
     - ./:/app
-    image: composer:2.6
-    command: composer install
+    command: sh -c "git config --global --add safe.directory /app && composer install"
 
   phpunit:
+    build: .
     volumes:
     - ./:/app
-    image: composer:2.6
-    command: composer phpunit
+    command: sh -c "git config --global --add safe.directory /app && composer run phpunit"
 
   test:
+    build: .
     volumes:
     - ./:/app
-    image: composer:2.6
-    command: composer run tests
+    command: sh -c "git config --global --add safe.directory /app && composer run tests"
 
   fixcs:
+    build: .
     volumes:
     - ./:/app
-    image: composer:2.6
-    command: composer run fix-cs
+    command: sh -c "git config --global --add safe.directory /app && composer run fix-cs"
+
+  debug:
+    build: .
+    volumes:
+    - ./:/app
+    command: sh -c "mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.disabled /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini 2>/dev/null || true; php -dxdebug.mode=debug -dpcov.enabled=0 $@"
+

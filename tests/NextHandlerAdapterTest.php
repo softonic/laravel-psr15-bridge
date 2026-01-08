@@ -2,6 +2,7 @@
 
 namespace Softonic\Laravel\Middleware\Psr15Bridge;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -12,13 +13,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class NextHandlerAdapterTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function whenHandledItShouldAdaptTheRequestForNextMiddlewareAndResponseForThePrevious(): void
     {
-        $psr7Request = $this->createMock(ServerRequestInterface::class);
-        $psr7Response = $this->createMock(ResponseInterface::class);
+        $psr7Request = $this->createStub(ServerRequestInterface::class);
+        $psr7Response = $this->createStub(ResponseInterface::class);
         $request = new Request();
         $response = new Response();
 

@@ -3,6 +3,7 @@
 namespace Softonic\Laravel\Middleware\Psr15Bridge;
 
 use Illuminate\Http\Request;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -13,13 +14,11 @@ use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
 
 class Psr15MiddlewareAdapterTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function whenHandledItShouldAdaptTheRequestForNextMiddlewareAndResponseForThePrevious(): void
     {
-        $psr7Request  = $this->createMock(ServerRequestInterface::class);
-        $psr7Response = $this->createMock(ResponseInterface::class);
+        $psr7Request  = $this->createStub(ServerRequestInterface::class);
+        $psr7Response = $this->createStub(ResponseInterface::class);
         $request      = new \Symfony\Component\HttpFoundation\Request();
         $response     = new \Symfony\Component\HttpFoundation\Response();
 
@@ -41,7 +40,7 @@ class Psr15MiddlewareAdapterTest extends TestCase
             ->with($request)
             ->willReturn($psr7Request);
 
-        $psr15Middleware = new class() implements MiddlewareInterface {
+        $psr15Middleware = new class () implements MiddlewareInterface {
             public function process(
                 ServerRequestInterface $request,
                 RequestHandlerInterface $handler
