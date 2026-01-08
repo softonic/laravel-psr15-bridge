@@ -46,14 +46,3 @@ jobs:
 
       - name: Check code style
         run: composer run phpcs
-
-      - name: Upload coverage to Scrutinizer
-        if: success()
-        continue-on-error: true
-        run: |
-          if [ -f "build/clover.xml" ]; then
-            wget -q https://scrutinizer-ci.com/ocular.phar
-            php ocular.phar code-coverage:upload --format=php-clover build/clover.xml
-          else
-            echo "Coverage file not found at build/clover.xml"
-          fi

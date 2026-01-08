@@ -4,8 +4,6 @@ Laravel PSR-15 Middleware Bridge
 [![Latest Version](https://img.shields.io/github/release/softonic/laravel-psr15-bridge.svg?style=flat-square)](https://github.com/softonic/laravel-psr15-bridge/releases)
 [![Software License](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](LICENSE)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/softonic/laravel-psr15-bridge/tests.yml?branch=master&style=flat-square)](https://github.com/softonic/laravel-psr15-bridge/actions)
-[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/softonic/laravel-psr15-bridge.svg?style=flat-square)](https://scrutinizer-ci.com/g/softonic/laravel-psr15-bridge/code-structure)
-[![Quality Score](https://img.shields.io/scrutinizer/g/softonic/laravel-psr15-bridge.svg?style=flat-square)](https://scrutinizer-ci.com/g/softonic/laravel-psr15-bridge)
 [![Total Downloads](https://img.shields.io/packagist/dt/softonic/laravel-psr15-bridge.svg?style=flat-square)](https://packagist.org/packages/softonic/laravel-psr15-bridge)
 
 This package provides a Laravel middleware bridge for [PSR-15][PSR-15] inspired in [jshannon63/laravel-psr15-middleware](https://github.com/jshannon63/laravel-psr15-middleware).
