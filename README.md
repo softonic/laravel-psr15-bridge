@@ -3,12 +3,15 @@ Laravel PSR-15 Middleware Bridge
 
 [![Latest Version](https://img.shields.io/github/release/softonic/laravel-psr15-bridge.svg?style=flat-square)](https://github.com/softonic/laravel-psr15-bridge/releases)
 [![Software License](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square)](LICENSE)
-[![Build Status](https://img.shields.io/travis/softonic/laravel-psr15-bridge/master.svg?style=flat-square)](https://travis-ci.org/softonic/laravel-psr15-bridge)
-[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/softonic/laravel-psr15-bridge.svg?style=flat-square)](https://scrutinizer-ci.com/g/softonic/laravel-psr15-bridge/code-structure)
-[![Quality Score](https://img.shields.io/scrutinizer/g/softonic/laravel-psr15-bridge.svg?style=flat-square)](https://scrutinizer-ci.com/g/softonic/laravel-psr15-bridge)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/softonic/laravel-psr15-bridge/tests.yml?branch=master&style=flat-square)](https://github.com/softonic/laravel-psr15-bridge/actions)
 [![Total Downloads](https://img.shields.io/packagist/dt/softonic/laravel-psr15-bridge.svg?style=flat-square)](https://packagist.org/packages/softonic/laravel-psr15-bridge)
 
 This package provides a Laravel middleware bridge for [PSR-15][PSR-15] inspired in [jshannon63/laravel-psr15-middleware](https://github.com/jshannon63/laravel-psr15-middleware).
+
+## Requirements
+
+- PHP >= 8.5
+- Laravel 12.x
 
 Installation
 -------
@@ -65,7 +68,7 @@ protected $routeMiddleware = [
 ];
 ```
 
-Check [laravel middleware](https://laravel.com/docs/9.x/middleware) for more information.
+Check [laravel middleware](https://laravel.com/docs/12.x/middleware) for more information.
 
 How it works
 ------------
@@ -81,12 +84,30 @@ middleware that converts the request and response transparently for the middlewa
 Testing
 -------
 
-`softonic/laravel-psr15-bridge` has a [PHPUnit](https://phpunit.de) test suite and a coding style compliance test suite using [PHP CS Fixer](http://cs.sensiolabs.org/).
+`softonic/laravel-psr15-bridge` has a [PHPUnit](https://phpunit.de) test suite and a coding style compliance test suite using [PHP CS Fixer](https://cs.symfony.com/).
 
 To run the tests, run the following command from the project folder.
 
 ``` bash
-$ docker-compose run test
+$ docker compose run --rm test
+```
+
+To run PHPUnit only:
+
+``` bash
+$ docker compose run --rm phpunit
+```
+
+To check code style:
+
+``` bash
+$ docker compose run --rm php composer run phpcs
+```
+
+To fix code style issues:
+
+``` bash
+$ docker compose run --rm fixcs
 ```
 
 License
@@ -94,4 +115,4 @@ License
 
 The Apache 2.0 license. Please see [LICENSE](LICENSE) for more information.
 
-[PSR-15]: http://www.php-fig.org/psr/psr-15/
+[PSR-15]: https://www.php-fig.org/psr/psr-15/
