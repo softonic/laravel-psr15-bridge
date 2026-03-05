@@ -1,38 +1,42 @@
 {
-  "name": "softonic/laravel-psr15-bridge",
-  "type": "library",
-  "description" : "Laravel PSR-15 middleware bridge",
-  "keywords": ["psr", "laravel", "middleware"],
-  "license": "Apache-2.0",
-  "homepage": "https://github.com/softonic/laravel-psr15-bridge",
-  "support": {
-    "issues": "https://github.com/softonic//issues"
-  },
-  "require": {
-    "php": ">=8.5",
-    "illuminate/http": "^12.0",
-    "nyholm/psr7": "^1.2",
-    "psr/http-server-middleware": "^1.0",
-    "symfony/psr-http-message-bridge": "^7.0"
-  },
-  "require-dev": {
-    "friendsofphp/php-cs-fixer": "^3.0",
-    "phpunit/phpunit": "^12.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "Softonic\\Laravel\\Middleware\\Psr15Bridge\\": "src/"
+    "name": "softonic/laravel-psr15-bridge",
+    "type": "library",
+    "description": "Laravel PSR-15 middleware bridge",
+    "keywords": [
+        "psr",
+        "laravel",
+        "middleware"
+    ],
+    "license": "Apache-2.0",
+    "homepage": "https://github.com/softonic/laravel-psr15-bridge",
+    "support": {
+        "issues": "https://github.com/softonic//issues"
+    },
+    "require": {
+        "php": ">=8.5",
+        "illuminate/http": "^12.0|^13.0",
+        "nyholm/psr7": "^1.2",
+        "psr/http-server-middleware": "^1.0",
+        "symfony/psr-http-message-bridge": "^7.0|^8.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpunit/phpunit": "^12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Softonic\\Laravel\\Middleware\\Psr15Bridge\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Softonic\\Laravel\\Middleware\\Psr15Bridge\\": "tests/"
+        }
+    },
+    "scripts": {
+        "tests": "phpunit --coverage-text; php-cs-fixer fix -v --diff --dry-run --allow-risky=yes;",
+        "phpunit": "phpunit --coverage-text",
+        "phpcs": "php-cs-fixer fix -v --diff --dry-run --allow-risky=yes;",
+        "fix-cs": "php-cs-fixer fix -v --diff --allow-risky=yes;"
     }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Softonic\\Laravel\\Middleware\\Psr15Bridge\\": "tests/"
-    }
-  },
-  "scripts": {
-    "tests": "phpunit --coverage-text; php-cs-fixer fix -v --diff --dry-run --allow-risky=yes;",
-    "phpunit": "phpunit --coverage-text",
-    "phpcs": "php-cs-fixer fix -v --diff --dry-run --allow-risky=yes;",
-    "fix-cs": "php-cs-fixer fix -v --diff --allow-risky=yes;"
-  }
 }
